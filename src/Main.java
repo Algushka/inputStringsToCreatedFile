@@ -21,10 +21,14 @@ public class Main {
             System.out.println(newDir.getAbsolutePath());
             BufferedWriter targetFile = new BufferedWriter(new FileWriter(sourceFileName));
 
-               String str = inputStringFromScanner();
-               if (stringEqualsExit(str)) System.exit(0);
-                targetFile.write(str);
-                targetFile.newLine();
+            String str="";
+            while (!str.equals("exit"))
+             {str = inputStringFromScanner();
+              // if (stringEqualsExit(str)) {System.exit(0);}
+                if (!str.equals("exit")) {targetFile.write(str);
+                                         targetFile.newLine();}
+             }
+
 
 
             targetFile.flush();//скинь все в буфер
@@ -66,11 +70,11 @@ public class Main {
 
     }
 
-    public static boolean stringEqualsExit(String str) {
-        boolean result = false;
-        if (str.equals("exit")) return true;
-
-        return result;
-
-    }
+//    public static boolean stringEqualsExit(String str) {
+//        boolean result = false;
+//        if (str.equals("exit")) return true;
+//
+//        return result;
+//
+//    }
 }
