@@ -11,23 +11,26 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 //создаем новую папку
-        String  targetFolder = "E:\\ait\\basicprogramming\\lessons\\lesson45\\domashka\\temp";
+        String targetFolder = "E:\\ait\\basicprogramming\\lessons\\lesson45\\domashka\\temp";
         String sourceFileName = "output.txt";
-        String str = "I can always quit";
+        //String str = "I can always quit";
         //File newFile = new File("\\temp");
-        try
-        {File newDir = createFolder(targetFolder);
+        try {
+            File newDir = createFolder(targetFolder);
             System.out.println("Dir is created");
             System.out.println(newDir.getAbsolutePath());
             BufferedWriter targetFile = new BufferedWriter(new FileWriter(sourceFileName));
-            targetFile.write(str);
-            targetFile.newLine();
+
+               String str = inputStringFromScanner();
+               if (stringEqualsExit(str)) System.exit(0);
+                targetFile.write(str);
+                targetFile.newLine();
+
+
             targetFile.flush();//скинь все в буфер
-        }
-        catch (NotCreateDirException e) {
+        } catch (NotCreateDirException e) {
             System.out.println(e.getMessage());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
 
             //throw new RuntimeException("Failed to write a string to file"); или это
             e.printStackTrace();
@@ -42,19 +45,20 @@ public class Main {
     }
 
 
-
-    public static File createFolder ( String targetFolder) {
-        boolean create= false;
+    public static File createFolder(String targetFolder) {
+        boolean create = false;
         File newFolder = new File(targetFolder);
         create = newFolder.mkdir();
         if (!create) {
-            throw new NotCreateDirException("Dir is not created  :    " + targetFolder+ "'");
+            throw new NotCreateDirException("Dir is not created  :    " + targetFolder + "'");
         }
-return newFolder;
+        return newFolder;
     }
+
     public static String inputStringFromScanner() {
         Scanner scanner = new Scanner(System.in);
         String result;
+        System.out.println("Input string (while string<>exit: ");
         result = scanner.nextLine();
 
 
@@ -62,8 +66,11 @@ return newFolder;
 
     }
 
-    public static boolean ifStringEqualsExit (String str) {
+    public static boolean stringEqualsExit(String str) {
+        boolean result = false;
+        if (str.equals("exit")) return true;
 
+        return result;
 
     }
 }
