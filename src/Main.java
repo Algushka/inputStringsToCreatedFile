@@ -4,10 +4,8 @@
 //        введет "-exit" ваша программа должна вывести на экран весь
 //        введенный пользователем текст.
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.util.Scanner;
 //https://github.com/Algushka/inputStringsToCreatedFile.git
 
 public class Main {
@@ -15,34 +13,36 @@ public class Main {
 //создаем новую папку
         String  targetFolder = "E:\\ait\\basicprogramming\\lessons\\lesson45\\domashka\\temp";
         String sourceFileName = "output.txt";
+        String str = "I can always quit";
         //File newFile = new File("\\temp");
         try
         {File newDir = createFolder(targetFolder);
             System.out.println("Dir is created");
             System.out.println(newDir.getAbsolutePath());
+            BufferedWriter targetFile = new BufferedWriter(new FileWriter(sourceFileName));
+            targetFile.write(str);
+            targetFile.newLine();
+            targetFile.flush();//скинь все в буфер
         }
         catch (NotCreateDirException e) {
             System.out.println(e.getMessage());
+        }
+        catch (IOException e) {
+
+            //throw new RuntimeException("Failed to write a string to file"); или это
+            e.printStackTrace();
+            //System.out.println(e.getMessage());
         }
 //        File newFile = new File (targetFolder);
 //        System.out.println(newFile.exists());
 //        newFile.mkdir();
 //        System.out.println(newFile.exists());
 //        System.out.println("newFile.getParent()"+ newFile.getAbsolutePath());
-        try
-                //пробуем создать файл для записи открываем поток
-                (OutputStream targetFile = new FileOutputStream(sourceFileName)) {
-
-        }
-            catch (IOException e) {
-
-        };
-    }
-    public static void WriteStringToFile (OutputStream target, String str) {
-
-
 
     }
+
+
+
     public static File createFolder ( String targetFolder) {
         boolean create= false;
         File newFolder = new File(targetFolder);
@@ -51,5 +51,19 @@ public class Main {
             throw new NotCreateDirException("Dir is not created  :    " + targetFolder+ "'");
         }
 return newFolder;
+    }
+    public static String inputStringFromScanner() {
+        Scanner scanner = new Scanner(System.in);
+        String result;
+        result = scanner.nextLine();
+
+
+        return result;
+
+    }
+
+    public static boolean ifStringEqualsExit (String str) {
+
+
     }
 }
